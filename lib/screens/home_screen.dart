@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Asegúrate de que esta importación esté presente y correctamente escrita
+import 'package:intl/intl.dart';
 import 'package:biblioteca_libros/database/db_helper.dart';
+import 'package:biblioteca_libros/screens/welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,7 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
+  Future<void> _selectDate(BuildContext context,
+      TextEditingController controller) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -167,7 +169,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     TextField(
                       controller: publicationDateController,
-                      onTap: () => _selectDate(context, publicationDateController),
+                      onTap: () =>
+                          _selectDate(context, publicationDateController),
                       readOnly: true,
                       decoration: InputDecoration(
                         labelText: 'Fecha de Publicación',
@@ -187,7 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               availabilityController.text = availability!;
                             });
                           },
-                          items: <String>['Sí', 'No'].map<DropdownMenuItem<String>>((String value) {
+                          items: <String>['Sí', 'No'].map<
+                              DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -214,7 +218,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         publicationDateController.text.isEmpty ||
                         availabilityController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Por favor, complete todos los campos.')),
+                        SnackBar(content: Text(
+                            'Por favor, complete todos los campos.')),
                       );
                       return;
                     }
@@ -248,17 +253,23 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showEditBookDialog(int id, String currentTitle, String currentAuthor, String currentLocation, String currentCondition, String currentGenre, String currentPublicationDate, String currentAvailability, String currentNotes) {
+  void _showEditBookDialog(int id, String currentTitle, String currentAuthor,
+      String currentLocation, String currentCondition, String currentGenre,
+      String currentPublicationDate, String currentAvailability,
+      String currentNotes) {
     showDialog(
       context: context,
       builder: (context) {
         final titleController = TextEditingController(text: currentTitle);
         final authorController = TextEditingController(text: currentAuthor);
         final locationController = TextEditingController(text: currentLocation);
-        final conditionController = TextEditingController(text: currentCondition);
+        final conditionController = TextEditingController(
+            text: currentCondition);
         final genreController = TextEditingController(text: currentGenre);
-        final publicationDateController = TextEditingController(text: currentPublicationDate);
-        final availabilityController = TextEditingController(text: currentAvailability);
+        final publicationDateController = TextEditingController(
+            text: currentPublicationDate);
+        final availabilityController = TextEditingController(
+            text: currentAvailability);
         final notesController = TextEditingController(text: currentNotes);
 
         String? location = currentLocation;
@@ -378,7 +389,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     TextField(
                       controller: publicationDateController,
-                      onTap: () => _selectDate(context, publicationDateController),
+                      onTap: () =>
+                          _selectDate(context, publicationDateController),
                       readOnly: true,
                       decoration: InputDecoration(
                         labelText: 'Fecha de Publicación',
@@ -398,7 +410,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               availabilityController.text = availability!;
                             });
                           },
-                          items: <String>['Sí', 'No'].map<DropdownMenuItem<String>>((String value) {
+                          items: <String>['Sí', 'No'].map<
+                              DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -425,7 +438,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         publicationDateController.text.isEmpty ||
                         availabilityController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Por favor, complete todos los campos.')),
+                        SnackBar(content: Text(
+                            'Por favor, complete todos los campos.')),
                       );
                       return;
                     }
@@ -492,68 +506,318 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _insertMultipleBooks() async {
+    List<Map<String, String>> books = [
+      {
+        'title': 'Cien años de soledad',
+        'author': 'Gabriel García Márquez',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Nuevo',
+        'genre': 'Realismo Mágico',
+        'publication_date': '1967-05-30',
+        'availability': 'Sí',
+        'notes': 'Una obra maestra de la literatura universal.',
+      },
+      {
+        'title': 'Don Quijote de la Mancha',
+        'author': 'Miguel de Cervantes',
+        'location': 'Clásicos Españoles',
+        'condition': 'Usado - Buen estado',
+        'genre': 'Novela de Aventuras',
+        'publication_date': '1605-01-16',
+        'availability': 'No',
+        'notes': 'Considerada la mejor obra de la literatura española.',
+      },
+      {
+        'title': 'Rayuela',
+        'author': 'Julio Cortázar',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Nuevo',
+        'genre': 'Novela Experimental',
+        'publication_date': '1963-06-28',
+        'availability': 'Sí',
+        'notes': 'Una novela innovadora que rompe con la estructura tradicional.',
+      },
+      {
+        'title': 'La sombra del viento',
+        'author': 'Carlos Ruiz Zafón',
+        'location': 'Novela Contemporánea',
+        'condition': 'Nuevo',
+        'genre': 'Misterio',
+        'publication_date': '2001-04-01',
+        'availability': 'Sí',
+        'notes': 'El primero de la saga del Cementerio de los Libros Olvidados.',
+      },
+      {
+        'title': 'La casa de los espíritus',
+        'author': 'Isabel Allende',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Usado - Buen estado',
+        'genre': 'Realismo Mágico',
+        'publication_date': '1982-01-01',
+        'availability': 'Sí',
+        'notes': 'Una historia familiar llena de magia y tragedia.',
+      },
+      {
+        'title': 'Pedro Páramo',
+        'author': 'Juan Rulfo',
+        'location': 'Clásicos Latinoamericanos',
+        'condition': 'Nuevo',
+        'genre': 'Realismo Mágico',
+        'publication_date': '1955-01-01',
+        'availability': 'Sí',
+        'notes': 'Una obra clave en la literatura mexicana del siglo XX.',
+      },
+      {
+        'title': 'Crónica de una muerte anunciada',
+        'author': 'Gabriel García Márquez',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Usado - Buen estado',
+        'genre': 'Realismo Mágico',
+        'publication_date': '1981-01-01',
+        'availability': 'Sí',
+        'notes': 'Una novela corta que mezcla suspense y tragedia.',
+      },
+      {
+        'title': 'La ciudad y los perros',
+        'author': 'Mario Vargas Llosa',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Nuevo',
+        'genre': 'Novela',
+        'publication_date': '1962-01-01',
+        'availability': 'No',
+        'notes': 'Una mirada crítica a la vida en un colegio militar en Perú.',
+      },
+      {
+        'title': 'Los detectives salvajes',
+        'author': 'Roberto Bolaño',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Nuevo',
+        'genre': 'Novela',
+        'publication_date': '1998-01-01',
+        'availability': 'Sí',
+        'notes': 'Una obra que explora la contracultura y la bohemia en México.',
+      },
+      {
+        'title': 'Aura',
+        'author': 'Carlos Fuentes',
+        'location': 'Clásicos Latinoamericanos',
+        'condition': 'Nuevo',
+        'genre': 'Novela Gótica',
+        'publication_date': '1962-01-01',
+        'availability': 'Sí',
+        'notes': 'Una historia misteriosa y seductora.',
+      },
+      {
+        'title': 'El amor en los tiempos del cólera',
+        'author': 'Gabriel García Márquez',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Nuevo',
+        'genre': 'Romance',
+        'publication_date': '1985-01-01',
+        'availability': 'Sí',
+        'notes': 'Una historia de amor inolvidable ambientada en el Caribe colombiano.',
+      },
+      {
+        'title': 'La guerra del fin del mundo',
+        'author': 'Mario Vargas Llosa',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Usado - Buen estado',
+        'genre': 'Histórica',
+        'publication_date': '1981-01-01',
+        'availability': 'Sí',
+        'notes': 'Una novela épica basada en hechos históricos ocurridos en Brasil.',
+      },
+      {
+        'title': 'Los miserables',
+        'author': 'Victor Hugo',
+        'location': 'Clásicos Europeos',
+        'condition': 'Nuevo',
+        'genre': 'Novela',
+        'publication_date': '1862-01-01',
+        'availability': 'Sí',
+        'notes': 'Una historia de redención, amor y justicia social ambientada en la Francia del siglo XIX.',
+      },
+      {
+        'title': 'Cien años de perdón',
+        'author': 'Jorge Zepeda Patterson',
+        'location': 'Novela Contemporánea',
+        'condition': 'Nuevo',
+        'genre': 'Suspense',
+        'publication_date': '2016-01-01',
+        'availability': 'Sí',
+        'notes': 'Una novela que mezcla intriga, política y corrupción en América Latina.',
+      },
+      {
+        'title': 'El túnel',
+        'author': 'Ernesto Sabato',
+        'location': 'Clásicos Latinoamericanos',
+        'condition': 'Nuevo',
+        'genre': 'Existencialista',
+        'publication_date': '1948-01-01',
+        'availability': 'Sí',
+        'notes': 'Una novela que explora la mente humana y la obsesión.',
+      },
+      {
+        'title': 'Pantaleón y las visitadoras',
+        'author': 'Mario Vargas Llosa',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Usado - Buen estado',
+        'genre': 'Humor',
+        'publication_date': '1973-01-01',
+        'availability': 'Sí',
+        'notes': 'Una sátira sobre la vida militar y la burocracia en Perú.',
+      },
+      {
+        'title': 'El laberinto de los espíritus',
+        'author': 'Carlos Ruiz Zafón',
+        'location': 'Novela Contemporánea',
+        'condition': 'Nuevo',
+        'genre': 'Misterio',
+        'publication_date': '2016-01-01',
+        'availability': 'Sí',
+        'notes': 'El último libro de la saga del Cementerio de los Libros Olvidados.',
+      },
+      {
+        'title': 'La casa de Bernarda Alba',
+        'author': 'Federico García Lorca',
+        'location': 'Teatro Español',
+        'condition': 'Nuevo',
+        'genre': 'Tragedia',
+        'publication_date': '1945-01-01',
+        'availability': 'Sí',
+        'notes': 'Una obra de teatro que explora la represión y la libertad femenina.',
+      },
+      {
+        'title': 'El beso de la mujer araña',
+        'author': 'Manuel Puig',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Nuevo',
+        'genre': 'Drama',
+        'publication_date': '1976-01-01',
+        'availability': 'Sí',
+        'notes': 'Una novela epistolar que aborda temas como la sexualidad y la represión política.',
+      },
+      {
+        'title': '2666',
+        'author': 'Roberto Bolaño',
+        'location': 'Ficción Latinoamericana',
+        'condition': 'Nuevo',
+        'genre': 'Novela',
+        'publication_date': '2004-01-01',
+        'availability': 'Sí',
+        'notes': 'Una novela monumental que explora el crimen y la búsqueda de la verdad.',
+      },
+      // Agrega más libros si es necesario
+    ];
+
+    for (var book in books) {
+      await dbHelper.insertBook(
+        book['title']!,
+        book['author']!,
+        book['location']!,
+        book['condition']!,
+        book['genre']!,
+        book['publication_date']!,
+        book['availability']!,
+        book['notes']!,
+      );
+    }
+
+    _refreshBooks();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Biblioteca'),
-      ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: booksFuture,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
-          }
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Biblioteca'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
 
-          if (snapshot.data!.isEmpty) {
-            return Center(child: Text('No hay libros en la biblioteca.'));
-          }
+                      (Route<dynamic> route) => false,
+                );
+              },
+            ),
+          ],
+        ),
+        body: FutureBuilder<List<Map<String, dynamic>>>(
+          future: booksFuture,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final book = snapshot.data![index];
-              return ListTile(
-                title: Text(book['title']),
-                subtitle: Text('${book['author']} - ${book['availability']}'),
-                onTap: () => _showBookDetails(book),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        _showEditBookDialog(
-                          book['id'],
-                          book['title'],
-                          book['author'],
-                          book['location'],
-                          book['condition'],
-                          book['genre'],
-                          book['publication_date'],
-                          book['availability'],
-                          book['notes'],
-                        );
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        dbHelper.deleteBook(book['id']).then((_) {
-                          _refreshBooks();
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddBookDialog,
-        child: Icon(Icons.add),
+            if (snapshot.data!.isEmpty) {
+              return Center(child: Text('No hay libros en la biblioteca.'));
+            }
+
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final book = snapshot.data![index];
+                return ListTile(
+                  title: Text(book['title']),
+                  subtitle: Text('${book['author']} - ${book['availability']}'),
+                  onTap: () => _showBookDetails(book),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          _showEditBookDialog(
+                            book['id'],
+                            book['title'],
+                            book['author'],
+                            book['location'],
+                            book['condition'],
+                            book['genre'],
+                            book['publication_date'],
+                            book['availability'],
+                            book['notes'],
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          dbHelper.deleteBook(book['id']).then((_) {
+                            _refreshBooks();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: _showAddBookDialog,
+              child: Icon(Icons.add),
+              tooltip: 'Agregar Libro',
+            ),
+            SizedBox(height: 10),
+            FloatingActionButton(
+              onPressed: _insertMultipleBooks,
+              child: Icon(Icons.library_add),
+              tooltip: 'Agregar Múltiples Libros',
+            ),
+          ],
+        ),
       ),
     );
   }
