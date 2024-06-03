@@ -12,11 +12,19 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Map<String, dynamic>>> booksFuture;
   final DatabaseHelper dbHelper = DatabaseHelper();
 
+  // Método para cerrar sesión
+  void _logout() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     _refreshBooks();
   }
+
 
   void _refreshBooks() {
     setState(() {
@@ -710,18 +718,22 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       // Agrega más libros si es necesario
     ];
-
     for (var book in books) {
-      await dbHelper.insertBook(
-        book['title']!,
-        book['author']!,
-        book['location']!,
-        book['condition']!,
-        book['genre']!,
-        book['publication_date']!,
-        book['availability']!,
-        book['notes']!,
-      );
+      try {
+        await dbHelper.insertBook(
+          book['title']!,
+          book['author']!,
+          book['location']!,
+          book['condition']!,
+          book['genre']!,
+          book['publication_date']!,
+          book['availability']!,
+          book['notes']!,
+        );
+        print('Libro agregado: ${book['title']}');
+      } catch (e) {
+        print('Error al agregar el libro "${book['title']}": $e');
+      }
     }
 
     _refreshBooks();
@@ -729,95 +741,85 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('Biblioteca'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // Esto elimina el botón de retroceso
+        title: Text('Biblioteca'),
+      ),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: booksFuture,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
 
-                      (Route<dynamic> route) => false,
-                );
-              },
-            ),
-          ],
-        ),
-        body: FutureBuilder<List<Map<String, dynamic>>>(
-          future: booksFuture,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            }
+          if (snapshot.data!.isEmpty) {
+            return Center(child: Text('No hay libros en la biblioteca.'));
+          }
 
-            if (snapshot.data!.isEmpty) {
-              return Center(child: Text('No hay libros en la biblioteca.'));
-            }
-
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final book = snapshot.data![index];
-                return ListTile(
-                  title: Text(book['title']),
-                  subtitle: Text('${book['author']} - ${book['availability']}'),
-                  onTap: () => _showBookDetails(book),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () {
-                          _showEditBookDialog(
-                            book['id'],
-                            book['title'],
-                            book['author'],
-                            book['location'],
-                            book['condition'],
-                            book['genre'],
-                            book['publication_date'],
-                            book['availability'],
-                            book['notes'],
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          dbHelper.deleteBook(book['id']).then((_) {
-                            _refreshBooks();
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-        ),
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: _showAddBookDialog,
-              child: Icon(Icons.add),
-              tooltip: 'Agregar Libro',
-            ),
-            SizedBox(height: 10),
-            FloatingActionButton(
-              onPressed: _insertMultipleBooks,
-              child: Icon(Icons.library_add),
-              tooltip: 'Agregar Múltiples Libros',
-            ),
-          ],
-        ),
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final book = snapshot.data![index];
+              return ListTile(
+                title: Text(book['title']),
+                subtitle: Text('${book['author']} - ${book['availability']}'),
+                onTap: () => _showBookDetails(book),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        _showEditBookDialog(
+                          book['id'],
+                          book['title'],
+                          book['author'],
+                          book['location'],
+                          book['condition'],
+                          book['genre'],
+                          book['publication_date'],
+                          book['availability'],
+                          book['notes'],
+                        );
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        dbHelper.deleteBook(book['id']).then((_) {
+                          _refreshBooks();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: _showAddBookDialog,
+            child: Icon(Icons.add),
+            tooltip: 'Agregar Libro',
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: _insertMultipleBooks,
+            child: Icon(Icons.library_add),
+            tooltip: 'Agregar Múltiples Libros',
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: _logout,
+            child: Icon(Icons.exit_to_app),
+            tooltip: 'Cerrar Sesión',
+          ),
+        ],
       ),
     );
   }

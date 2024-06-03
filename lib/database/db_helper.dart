@@ -32,7 +32,6 @@ class DatabaseHelper {
     );
   }
 
-  // User functions
   Future<void> insertUser(String username, String password) async {
     final db = await database;
     await db.insert(
@@ -56,23 +55,28 @@ class DatabaseHelper {
     return null;
   }
 
-  // Book functions
   Future<void> insertBook(String title, String author, String location, String condition, String genre, String publicationDate, String availability, String notes) async {
-    final db = await database;
-    await db.insert(
-      'books',
-      {
-        'title': title,
-        'author': author,
-        'location': location,
-        'condition': condition,
-        'genre': genre,
-        'publication_date': publicationDate,
-        'availability': availability,
-        'notes': notes,
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    try {
+      final db = await database;
+      await db.insert(
+        'books',
+        {
+          'title': title,
+          'author': author,
+          'location': location,
+          'condition': condition,
+          'genre': genre,
+          'publication_date': publicationDate,
+          'availability': availability,
+          'notes': notes,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      print('Libro insertado: $title');
+    } catch (e) {
+      print('Error al insertar libro: $e');
+      throw Exception('Error al insertar libro: $e');
+    }
   }
 
   Future<List<Map<String, dynamic>>> getBooks() async {
@@ -105,6 +109,15 @@ class DatabaseHelper {
       'books',
       where: 'id = ?',
       whereArgs: [id],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getBooksByGenre(String genre) async {
+    final db = await database;
+    return await db.query(
+      'books',
+      where: 'genre = ?',
+      whereArgs: [genre],
     );
   }
 }
