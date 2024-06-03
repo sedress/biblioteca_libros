@@ -1,5 +1,5 @@
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -16,22 +16,23 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'library.db');
+    final path = join(dbPath, 'app.db');
 
     return await openDatabase(
       path,
       version: 1,
-      onCreate: (db, version) async {
-        await db.execute(
+      onCreate: (db, version) {
+        db.execute(
           'CREATE TABLE users(id INTEGER PRIMARY KEY, username TEXT, password TEXT)',
         );
-        await db.execute(
-          'CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT, author TEXT, genre TEXT)',
+        db.execute(
+          'CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT, author TEXT, location TEXT, condition TEXT, genre TEXT, publication_date TEXT, availability TEXT, notes TEXT)',
         );
       },
     );
   }
 
+  // User functions
   Future<void> insertUser(String username, String password) async {
     final db = await database;
     await db.insert(
@@ -55,11 +56,21 @@ class DatabaseHelper {
     return null;
   }
 
-  Future<void> insertBook(String title, String author, String genre) async {
+  // Book functions
+  Future<void> insertBook(String title, String author, String location, String condition, String genre, String publicationDate, String availability, String notes) async {
     final db = await database;
     await db.insert(
       'books',
-      {'title': title, 'author': author, 'genre': genre},
+      {
+        'title': title,
+        'author': author,
+        'location': location,
+        'condition': condition,
+        'genre': genre,
+        'publication_date': publicationDate,
+        'availability': availability,
+        'notes': notes,
+      },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -69,11 +80,20 @@ class DatabaseHelper {
     return await db.query('books');
   }
 
-  Future<void> updateBook(int id, String title, String author, String genre) async {
+  Future<void> updateBook(int id, String title, String author, String location, String condition, String genre, String publicationDate, String availability, String notes) async {
     final db = await database;
     await db.update(
       'books',
-      {'title': title, 'author': author, 'genre': genre},
+      {
+        'title': title,
+        'author': author,
+        'location': location,
+        'condition': condition,
+        'genre': genre,
+        'publication_date': publicationDate,
+        'availability': availability,
+        'notes': notes,
+      },
       where: 'id = ?',
       whereArgs: [id],
     );
