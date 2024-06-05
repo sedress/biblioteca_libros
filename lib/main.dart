@@ -4,8 +4,11 @@ import 'package:biblioteca_libros/screens/register_screen.dart';
 import 'package:biblioteca_libros/screens/home_screen.dart';
 import 'package:biblioteca_libros/screens/welcome_screen.dart';
 import 'package:biblioteca_libros/screens/Book_PreviewScreen.dart';
+import 'package:biblioteca_libros/database/book_db_helper.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await BookDatabaseHelper().insertSampleBooks(); // Insertar libros de ejemplo
   runApp(MyApp());
 }
 

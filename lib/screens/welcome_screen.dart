@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'book_list_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -40,6 +41,19 @@ class WelcomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/bookPreview');
               },
               child: Text('Vista Previa de Libros'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+              ),
+            ),
+            SizedBox(height: 10), // Espacio entre botones
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookListScreen()),
+                );
+              },
+              child: Text('Lista de Libros'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 50),
               ),
