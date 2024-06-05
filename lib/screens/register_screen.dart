@@ -17,9 +17,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
       final password = _passwordController.text;
 
       final db = DatabaseHelper();
-      await db.insertUser(username, password);
+      bool usernameTaken = await db.isUsernameTaken(username);
 
-      Navigator.pushReplacementNamed(context, '/login');
+      if (usernameTaken) {
+        // Mostrar aviso de que el nombre de usuario ya está registrado
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Error'),
+            content: Text('El nombre de usuario ya está registrado'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('Aceptar'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        // Insertar nuevo usuario y navegar a la pantalla de login
+        await db.insertUser(username, password);
+        Navigator.pushReplacementNamed(context, '/login');
+      }
     }
   }
 

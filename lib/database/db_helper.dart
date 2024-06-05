@@ -55,6 +55,16 @@ class DatabaseHelper {
     return null;
   }
 
+  Future<bool> isUsernameTaken(String username) async {
+    final db = await database;
+    var res = await db.query(
+      'users',
+      where: 'username = ?',
+      whereArgs: [username],
+    );
+    return res.isNotEmpty;
+  }
+
   Future<void> insertBook(String title, String author, String location, String condition, String genre, String publicationDate, String availability, String notes) async {
     try {
       final db = await database;
