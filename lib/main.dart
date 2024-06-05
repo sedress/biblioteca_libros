@@ -3,6 +3,7 @@ import 'package:biblioteca_libros/screens/login_screen.dart';
 import 'package:biblioteca_libros/screens/register_screen.dart';
 import 'package:biblioteca_libros/screens/home_screen.dart';
 import 'package:biblioteca_libros/screens/welcome_screen.dart';
+import 'package:biblioteca_libros/screens/Book_PreviewScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterScreen(),
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
+        '/bookPreview': (context) => BookPreviewScreen(),
       },
     );
   }

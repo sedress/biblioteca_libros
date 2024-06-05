@@ -34,6 +34,16 @@ class WelcomeScreen extends StatelessWidget {
                 minimumSize: Size(double.infinity, 50),
               ),
             ),
+            SizedBox(height: 10), // Espacio entre botones
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/bookPreview');
+              },
+              child: Text('Vista Previa de Libros'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+              ),
+            ),
           ],
         ),
       ),
