@@ -35,3 +35,8 @@ flutter:
   assets:
     - assets/pdfs/sample1.pdf
     - assets/pdfs/sample2.pdf
+    - assets/pdfs/yumemiruvolumen1.pdf
+    - assets/pdfs/yumemiruvolumen2.pdf
+    - assets/pdfs/yumemiruvolumen3.pdf
+    - assets/pdfs/yumemiruvolumen4.pdf
+    - assets/pdfs/yumemiruvolumen5.pdf

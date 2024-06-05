@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Invalid username or password'),
+        content: Text('Nombre de Usuario o Contraseña Inccorrecta'),
       ));
     }
   }
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Inicio de Sesion'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -38,17 +38,17 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
+              decoration: InputDecoration(labelText: 'Nombre de Usuario'),
             ),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(labelText: 'Contraseña'),
               obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _login,
-              child: Text('Login'),
+              child: Text('Iniciar Sesion'),
             ),
           ],
         ),

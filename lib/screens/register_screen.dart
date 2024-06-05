@@ -46,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: Text('Registro de Usuarios'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -56,21 +56,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: <Widget>[
               TextFormField(
                 controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Username'),
+                decoration: InputDecoration(labelText: 'Nombre de Usuario'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a username';
+                    return 'Ingresa tu nombre de usuario';
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(labelText: 'Contraseña'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a password';
+                    return 'Ingresa tu contraseña';
                   }
                   return null;
                 },
@@ -78,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _register,
-                child: Text('Register'),
+                child: Text('Resgistrarse'),
               ),
             ],
           ),

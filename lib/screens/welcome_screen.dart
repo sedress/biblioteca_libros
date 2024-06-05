@@ -12,7 +12,7 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Welcome to MyApp',
+              'Libros en Inventario',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 50),
@@ -20,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/login');
               },
-              child: Text('Login'),
+              child: Text('Iniciar Sesion'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 50),
               ),
@@ -30,7 +30,7 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/register');
               },
-              child: Text('Register'),
+              child: Text('Registrar Usuario'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 50),
               ),
@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/bookPreview');
               },
-              child: Text('Vista Previa de Libros'),
+              child: Text('Lista de Libros en Stock'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 50),
               ),
@@ -53,7 +53,7 @@ class WelcomeScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => BookListScreen()),
                 );
               },
-              child: Text('Lista de Libros'),
+              child: Text('Libros en PDF'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 50),
               ),
