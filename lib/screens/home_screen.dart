@@ -165,7 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             'Autoayuda',
                             'Literatura Infantil y Juvenil',
                             'Cómics y Novelas Gráficas',
-                            'Libros de Idiomas'
+                            'Libros de Idiomas',
+                            'Teatro'
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -744,83 +745,132 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // Esto elimina el botón de retroceso
-        title: Text('Biblioteca'),
+        title: Text(
+          'Biblioteca',
+          style: TextStyle(color: Colors.white), // Texto blanco
+        ),
+        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
       ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: booksFuture,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
-          }
+      body: Stack(
+        children: <Widget>[
+          // Imagen de fondo
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          // Contenido principal
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: booksFuture,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF332612)), // Marrón Más Oscuro
+                    ),
+                  );
+                }
 
-          if (snapshot.data!.isEmpty) {
-            return Center(child: Text('No hay libros en la biblioteca.'));
-          }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No hay libros en la biblioteca.',
+                      style: TextStyle(color: Colors.white), // Texto blanco
+                    ),
+                  );
+                }
 
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final book = snapshot.data![index];
-              return ListTile(
-                title: Text(book['title']),
-                subtitle: Text('${book['author']} - ${book['availability']}'),
-                onTap: () => _showBookDetails(book),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        _showEditBookDialog(
-                          book['id'],
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final book = snapshot.data![index];
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 8.0),
+                      padding: EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF6F624B).withOpacity(0.8), // Marrón Claro con Opacidad
+                        borderRadius: BorderRadius.circular(12.0),
+                        border: Border.all(color: Colors.white, width: 2.0), // Contorno blanco
+                      ),
+                      child: ListTile(
+                        title: Text(
                           book['title'],
-                          book['author'],
-                          book['location'],
-                          book['condition'],
-                          book['genre'],
-                          book['publication_date'],
-                          book['availability'],
-                          book['notes'],
-                        );
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        dbHelper.deleteBook(book['id']).then((_) {
-                          _refreshBooks();
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+                          style: TextStyle(color: Colors.white), // Texto blanco
+                        ),
+                        subtitle: Text(
+                          '${book['author']} - ${book['availability']}',
+                          style: TextStyle(color: Colors.white70), // Texto blanco más claro
+                        ),
+                        onTap: () => _showBookDetails(book),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.edit, color: Colors.white), // Icono blanco
+                              onPressed: () {
+                                _showEditBookDialog(
+                                  book['id'],
+                                  book['title'],
+                                  book['author'],
+                                  book['location'],
+                                  book['condition'],
+                                  book['genre'],
+                                  book['publication_date'],
+                                  book['availability'],
+                                  book['notes'],
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.white), // Icono blanco
+                              onPressed: () {
+                                dbHelper.deleteBook(book['id']).then((_) {
+                                  _refreshBooks();
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
             onPressed: _showAddBookDialog,
-            child: Icon(Icons.add),
+            child: Icon(Icons.add, color: Color(0xFF332612)), // Icono marrón oscuro
             tooltip: 'Agregar Libro',
+            backgroundColor: Colors.white, // Fondo blanco
           ),
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: _insertMultipleBooks,
-            child: Icon(Icons.library_add),
+            child: Icon(Icons.library_add, color: Color(0xFF332612)), // Icono marrón oscuro
             tooltip: 'Agregar Múltiples Libros',
+            backgroundColor: Colors.white, // Fondo blanco
           ),
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: _logout,
-            child: Icon(Icons.exit_to_app),
+            child: Icon(Icons.exit_to_app, color: Colors.white), // Icono blanco
             tooltip: 'Cerrar Sesión',
+            backgroundColor: Colors.red, // Fondo rojo
           ),
         ],
       ),
     );
   }
+
 }

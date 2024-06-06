@@ -40,12 +40,22 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Lector de PDF'),
+        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
       ),
-      body: _pdfFilePath != null
-          ? PDFView(
-        filePath: _pdfFilePath!,
-      )
-          : Center(child: CircularProgressIndicator()),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFF6F624B), // Marrón Claro
+        ),
+        child: _pdfFilePath != null
+            ? PDFView(
+          filePath: _pdfFilePath!,
+        )
+            : Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF332612)), // Marrón Más Oscuro
+          ),
+        ),
+      ),
     );
   }
 }
