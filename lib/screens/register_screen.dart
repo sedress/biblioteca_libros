@@ -9,6 +9,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   void _register() async {
@@ -35,8 +36,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         );
       } else {
-        // Insertar nuevo usuario y navegar a la pantalla de login
+        // Insertar nuevo usuario y mostrar mensaje de éxito
         await db.insertUser(username, password);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Usuario registrado correctamente'),
+            duration: Duration(seconds: 2), // Duración de la notificación
+          ),
+        );
+
+        // Esperar a que la notificación se muestre antes de navegar
+        await Future.delayed(Duration(seconds: 2));
+
         Navigator.pushReplacementNamed(context, '/login');
       }
     }
@@ -61,6 +73,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Ingresa tu nombre de usuario';
                   }
+                  if (value.contains(' ')) {
+                    return 'El nombre de usuario no puede contener espacios';
+                  }
+                  if (value.length < 4) {
+                    return 'El nombre de usuario debe tener al menos 4 caracteres';
+                  }
                   return null;
                 },
               ),
@@ -72,13 +90,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Ingresa tu contraseña';
                   }
+                  if (value.length < 6) {
+                    return 'La contraseña debe tener al menos 6 caracteres';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _confirmPasswordController,
+                decoration: InputDecoration(labelText: 'Confirmar Contraseña'),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Confirma tu contraseña';
+                  }
+                  if (value != _passwordController.text) {
+                    return 'Las contraseñas no coinciden';
+                  }
                   return null;
                 },
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _register,
-                child: Text('Resgistrarse'),
+                child: Text('Registrarse'),
               ),
             ],
           ),
