@@ -61,7 +61,6 @@ class BookDatabaseHelper {
   Future<void> insertSampleBooks() async {
     final db = await database;
 
-    // Insertar Libros
     await db.insert('books', {
       'title': 'Yumemiru Volumen 1',
       'author': 'Okemaru',

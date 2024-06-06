@@ -17,8 +17,7 @@ class _BookListScreenState extends State<BookListScreen> {
   }
 
   Future<void> _initializeDatabase() async {
-    await BookDatabaseHelper().insertSampleBooks();
-    _fetchBooks();
+    await _fetchBooks();
   }
 
   Future<void> _fetchBooks() async {
@@ -27,6 +26,11 @@ class _BookListScreenState extends State<BookListScreen> {
     setState(() {
       _books = books;
     });
+  }
+
+  Future<void> _insertSampleBooks() async {
+    await BookDatabaseHelper().insertSampleBooks();
+    await _fetchBooks();
   }
 
   void _showBookDetails(Map<String, dynamic> book) {
@@ -88,6 +92,13 @@ class _BookListScreenState extends State<BookListScreen> {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            color: Colors.white, // Icono blanco
+            onPressed: _insertSampleBooks, // Llama al método para insertar libros
+          ),
+        ],
       ),
       body: Stack(
         children: <Widget>[
@@ -146,5 +157,4 @@ class _BookListScreenState extends State<BookListScreen> {
       ),
     );
   }
-
 }
