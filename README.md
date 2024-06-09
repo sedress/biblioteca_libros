@@ -2,6 +2,12 @@
 
 Tcc Desarrollo de Apps
 
+Cipa: Pentágono
+Sebastian Andres Mendoza Garcia
+Kevin Andres Hernández Robles
+Karla Vanessa Molinares Ricaurte
+David Rafael Parias Bohórquez
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
