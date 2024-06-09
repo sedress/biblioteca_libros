@@ -39,8 +39,13 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lector de PDF'),
+        title: Text(
+          'Lector de PDF',
+          style: TextStyle(color: Colors.white), // Color del texto en blanco
+        ),
         backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+        iconTheme: IconThemeData(color: Colors
+            .white), // Color de la flecha de volver atrás en blanco
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -52,7 +57,8 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
         )
             : Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF332612)), // Marrón Más Oscuro
+            valueColor: AlwaysStoppedAnimation<Color>(
+                Color(0xFF332612)), // Marrón Más Oscuro
           ),
         ),
       ),
