@@ -82,12 +82,12 @@ class _BookListScreenState extends State<BookListScreen> {
       appBar: AppBar(
         title: Text(
           'Lista de Libros',
-          style: TextStyle(color: Colors.white), // Texto blanco
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+        backgroundColor: Color(0xFF332612),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          color: Colors.white, // Icono de retroceso blanco
+          color: Colors.white,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -95,8 +95,8 @@ class _BookListScreenState extends State<BookListScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            color: Colors.white, // Icono blanco
-            onPressed: _insertSampleBooks, // Llama al método para insertar libros
+            color: Colors.white,
+            onPressed: _insertSampleBooks,
           ),
         ],
       ),
@@ -111,12 +111,12 @@ class _BookListScreenState extends State<BookListScreen> {
               ),
             ),
           ),
-          // Lista de libros en un contenedor con opacidad
+
           Center(
             child: Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Color(0xFF6F624B).withOpacity(0.8), // Marrón Claro con Opacidad
+                color: Color(0xFF6F624B).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -132,19 +132,19 @@ class _BookListScreenState extends State<BookListScreen> {
                 itemBuilder: (context, index) {
                   final book = _books[index];
                   return Card(
-                    color: Color(0xFF453823), // Color de fondo del card
+                    color: Color(0xFF453823),
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.white, width: 1), // Borde blanco
+                      side: BorderSide(color: Colors.white, width: 1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ListTile(
                       title: Text(
                         book['title'],
-                        style: TextStyle(color: Colors.white), // Texto blanco
+                        style: TextStyle(color: Colors.white),
                       ),
                       subtitle: Text(
                         'Autor: ${book['author']}',
-                        style: TextStyle(color: Colors.white70), // Texto blanco con opacidad
+                        style: TextStyle(color: Colors.white70),
                       ),
                       onTap: () => _showBookDetails(book),
                     ),

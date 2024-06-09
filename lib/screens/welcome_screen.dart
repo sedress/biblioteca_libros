@@ -16,13 +16,12 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          // Contenedor blanco centrado con opacidad
           Center(
             child: Container(
-              width: 320, // Ancho fijo para el contenedor
+              width: 320,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Color(0xFF6F624B).withOpacity(0.9), // Marrón Claro con Opacidad
+                color: Color(0xFF6F624B).withOpacity(0.9),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -42,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white, // Texto claro sobre fondo oscuro
+                      color: Colors.white,
                       fontFamily: 'Roboto',
                     ),
                   ),
@@ -54,11 +53,11 @@ class WelcomeScreen extends StatelessWidget {
                     icon: Icon(Icons.login, color: Colors.white),
                     label: Text('Iniciar Sesion', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                      backgroundColor: Color(0xFF332612),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      minimumSize: Size(double.infinity, 50), // Ancho máximo para el botón
+                      minimumSize: Size(double.infinity, 50),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -69,11 +68,11 @@ class WelcomeScreen extends StatelessWidget {
                     icon: Icon(Icons.person_add, color: Colors.white),
                     label: Text('Registrar Usuario', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                      backgroundColor: Color(0xFF332612),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      minimumSize: Size(double.infinity, 50), // Ancho máximo para el botón
+                      minimumSize: Size(double.infinity, 50),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -84,11 +83,11 @@ class WelcomeScreen extends StatelessWidget {
                     icon: Icon(Icons.library_books, color: Colors.white),
                     label: Text('Lista de Libros en Stock', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                      backgroundColor: Color(0xFF332612),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      minimumSize: Size(double.infinity, 50), // Ancho máximo para el botón
+                      minimumSize: Size(double.infinity, 50),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -102,11 +101,11 @@ class WelcomeScreen extends StatelessWidget {
                     icon: Icon(Icons.picture_as_pdf, color: Colors.white),
                     label: Text('Libros en PDF', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                      backgroundColor: Color(0xFF332612),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      minimumSize: Size(double.infinity, 50), // Ancho máximo para el botón
+                      minimumSize: Size(double.infinity, 50),
                     ),
                   ),
                 ],

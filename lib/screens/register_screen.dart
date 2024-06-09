@@ -21,7 +21,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       bool usernameTaken = await db.isUsernameTaken(username);
 
       if (usernameTaken) {
-        // Mostrar aviso de que el nombre de usuario ya está registrado
         showDialog(
           context: context,
           builder: (context) =>
@@ -37,17 +36,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
         );
       } else {
-        // Insertar nuevo usuario y mostrar mensaje de éxito
         await db.insertUser(username, password);
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Usuario registrado correctamente'),
-            duration: Duration(seconds: 2), // Duración de la notificación
+            duration: Duration(seconds: 1),
           ),
         );
-
-        // Esperar a que la notificación se muestre antes de navegar
         await Future.delayed(Duration(seconds: 2));
 
         Navigator.pushReplacementNamed(context, '/login');
@@ -61,15 +57,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         title: Text(
           'Registro de Usuarios',
-          style: TextStyle(color: Colors.white), // Texto blanco
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+        backgroundColor: Color(0xFF332612),
         iconTheme: IconThemeData(
-            color: Colors.white), // Icono de retroceso blanco
+            color: Colors.white),
       ),
       body: Stack(
         children: <Widget>[
-          // Imagen de fondo
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -78,14 +73,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
           ),
-          // Contenedor blanco centrado con opacidad
           Center(
             child: Container(
-              width: 320, // Ancho fijo para el contenedor
+              width: 320,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Color(0xFF6F624B).withOpacity(0.8),
-                // Marrón Claro con Opacidad
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -106,10 +99,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       decoration: InputDecoration(
                         labelText: 'Nombre de Usuario',
                         labelStyle: TextStyle(
-                            color: Colors.white), // Texto blanco
+                            color: Colors.white),
                       ),
                       style: TextStyle(color: Colors.white),
-                      // Texto del campo blanco
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Ingresa tu nombre de usuario';
@@ -128,11 +120,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       decoration: InputDecoration(
                         labelText: 'Contraseña',
                         labelStyle: TextStyle(
-                            color: Colors.white), // Texto blanco
+                            color: Colors.white),
                       ),
                       obscureText: true,
                       style: TextStyle(color: Colors.white),
-                      // Texto del campo blanco
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Ingresa tu contraseña';
@@ -148,11 +139,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       decoration: InputDecoration(
                         labelText: 'Confirmar Contraseña',
                         labelStyle: TextStyle(
-                            color: Colors.white), // Texto blanco
+                            color: Colors.white),
                       ),
                       obscureText: true,
                       style: TextStyle(color: Colors.white),
-                      // Texto del campo blanco
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Confirma tu contraseña';
@@ -170,12 +160,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           'Registrarse', style: TextStyle(color: Colors.white)),
                       // Texto blanco
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                        backgroundColor: Color(0xFF332612),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                         minimumSize: Size(
-                            double.infinity, 50), // Ancho máximo para el botón
+                            double.infinity, 50),
                       ),
                     ),
                   ],

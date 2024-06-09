@@ -717,7 +717,6 @@ class _HomeScreenState extends State<HomeScreen> {
         'availability': 'Sí',
         'notes': 'Una novela monumental que explora el crimen y la búsqueda de la verdad.',
       },
-      // Agrega más libros si es necesario
     ];
     for (var book in books) {
       try {
@@ -744,12 +743,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Esto elimina el botón de retroceso
+        automaticallyImplyLeading: false,
         title: Text(
           'Biblioteca',
           style: TextStyle(color: Colors.white), // Texto blanco
         ),
-        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+        backgroundColor: Color(0xFF332612),
       ),
       body: Stack(
         children: <Widget>[
@@ -762,7 +761,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          // Contenido principal
           Container(
             padding: const EdgeInsets.all(16.0),
             child: FutureBuilder<List<Map<String, dynamic>>>(
@@ -771,7 +769,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF332612)), // Marrón Más Oscuro
+                      valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF332612)),
                     ),
                   );
                 }
@@ -780,7 +778,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Text(
                       'No hay libros en la biblioteca.',
-                      style: TextStyle(color: Colors.white), // Texto blanco
+                      style: TextStyle(color: Colors.white),
                     ),
                   );
                 }
@@ -793,25 +791,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: EdgeInsets.symmetric(vertical: 8.0),
                       padding: EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
-                        color: Color(0xFF6F624B).withOpacity(0.8), // Marrón Claro con Opacidad
+                        color: Color(0xFF6F624B).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(12.0),
-                        border: Border.all(color: Colors.white, width: 2.0), // Contorno blanco
+                        border: Border.all(color: Colors.white, width: 2.0),
                       ),
                       child: ListTile(
                         title: Text(
                           book['title'],
-                          style: TextStyle(color: Colors.white), // Texto blanco
+                          style: TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
                           '${book['author']} - ${book['availability']}',
-                          style: TextStyle(color: Colors.white70), // Texto blanco más claro
+                          style: TextStyle(color: Colors.white70),
                         ),
                         onTap: () => _showBookDetails(book),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.edit, color: Colors.white), // Icono blanco
+                              icon: Icon(Icons.edit, color: Colors.white),
                               onPressed: () {
                                 _showEditBookDialog(
                                   book['id'],
@@ -827,7 +825,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             ),
                             IconButton(
-                              icon: Icon(Icons.delete, color: Colors.white), // Icono blanco
+                              icon: Icon(Icons.delete, color: Colors.white),
                               onPressed: () {
                                 dbHelper.deleteBook(book['id']).then((_) {
                                   _refreshBooks();
@@ -850,23 +848,23 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           FloatingActionButton(
             onPressed: _showAddBookDialog,
-            child: Icon(Icons.add, color: Color(0xFF332612)), // Icono marrón oscuro
+            child: Icon(Icons.add, color: Color(0xFF332612)),
             tooltip: 'Agregar Libro',
-            backgroundColor: Colors.white, // Fondo blanco
+            backgroundColor: Colors.white,
           ),
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: _insertMultipleBooks,
-            child: Icon(Icons.library_add, color: Color(0xFF332612)), // Icono marrón oscuro
+            child: Icon(Icons.library_add, color: Color(0xFF332612)),
             tooltip: 'Agregar Múltiples Libros',
-            backgroundColor: Colors.white, // Fondo blanco
+            backgroundColor: Colors.white,
           ),
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: _logout,
-            child: Icon(Icons.exit_to_app, color: Colors.white), // Icono blanco
+            child: Icon(Icons.exit_to_app, color: Colors.white),
             tooltip: 'Cerrar Sesión',
-            backgroundColor: Colors.red, // Fondo rojo
+            backgroundColor: Colors.red,
           ),
         ],
       ),

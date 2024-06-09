@@ -110,11 +110,11 @@ class _BookPreviewScreenState extends State<BookPreviewScreen> {
       appBar: AppBar(
         title: Text(
           'Vista Previa de Libros',
-          style: TextStyle(color: Colors.white), // Texto blanco
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+        backgroundColor: Color(0xFF332612),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white), // Icono blanco
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -131,7 +131,6 @@ class _BookPreviewScreenState extends State<BookPreviewScreen> {
               ),
             ),
           ),
-          // Contenedor con lista de libros y filtros
           Column(
             children: [
               _buildFilterControls(),
@@ -144,9 +143,9 @@ class _BookPreviewScreenState extends State<BookPreviewScreen> {
                       margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                       padding: EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
-                        color: Color(0xFF6F624B).withOpacity(0.8), // Marrón Claro con Opacidad
+                        color: Color(0xFF6F624B).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(12.0),
-                        border: Border.all(color: Colors.white, width: 2.0), // Contorno blanco
+                        border: Border.all(color: Colors.white, width: 2.0),
                       ),
                       child: ListTile(
                         title: Text(
@@ -174,10 +173,10 @@ class _BookPreviewScreenState extends State<BookPreviewScreen> {
     return ExpansionTile(
       title: Text(
         'Filtros de búsqueda',
-        style: TextStyle(color: Colors.white), // Texto blanco
+        style: TextStyle(color: Colors.white),
       ),
-      backgroundColor: Color(0xFF453823), // Color de fondo del ExpansionTile
-      collapsedBackgroundColor: Color(0xFF453823), // Color de fondo cuando está colapsado
+      backgroundColor: Color(0xFF453823),
+      collapsedBackgroundColor: Color(0xFF453823),
       children: [
         _buildDropdown(
           'Seleccione Género',
@@ -232,16 +231,16 @@ class _BookPreviewScreenState extends State<BookPreviewScreen> {
           children: [
             ElevatedButton(
               onPressed: _filterBooks,
-              child: Text('Filtrar', style: TextStyle(color: Colors.white)), // Texto blanco
+              child: Text('Filtrar', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                backgroundColor: Color(0xFF332612),
               ),
             ),
             ElevatedButton(
               onPressed: _clearFilters,
-              child: Text('Limpiar Filtros', style: TextStyle(color: Colors.white)), // Texto blanco
+              child: Text('Limpiar Filtros', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                backgroundColor: Color(0xFF332612),
               ),
             ),
           ],
@@ -259,15 +258,15 @@ class _BookPreviewScreenState extends State<BookPreviewScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: DropdownButton<String>(
-        hint: Text(hint, style: TextStyle(color: Colors.white)), // Texto blanco
+        hint: Text(hint, style: TextStyle(color: Colors.white)),
         value: value,
         onChanged: onChanged,
         isExpanded: true,
-        dropdownColor: Color(0xFF453823), // Color de fondo del dropdown
+        dropdownColor: Color(0xFF453823),
         items: items.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Text(value, style: TextStyle(color: Colors.white)), // Texto blanco
+            child: Text(value, style: TextStyle(color: Colors.white)),
           );
         }).toList(),
       ),

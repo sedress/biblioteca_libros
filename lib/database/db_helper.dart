@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:intl/intl.dart';  // Necesario para trabajar con fechas
+import 'package:intl/intl.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -72,7 +72,7 @@ class DatabaseHelper {
       final DateTime pubDate = DateFormat('yyyy-MM-dd').parse(publicationDate);
 
       if (pubDate.isAfter(now)) {
-        throw Exception('La fecha de publicación no puede ser en el futuro.');
+        throw Exception('Fecha incorrecta');
       }
 
       final db = await database;
@@ -107,7 +107,7 @@ class DatabaseHelper {
     final DateTime pubDate = DateFormat('yyyy-MM-dd').parse(publicationDate);
 
     if (pubDate.isAfter(now)) {
-      throw Exception('La fecha de publicación no puede ser en el futuro.');
+      throw Exception('Fecha incorrecta');
     }
 
     final db = await database;

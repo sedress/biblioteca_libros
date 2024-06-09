@@ -32,11 +32,11 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: Text(
           'Inicio de Sesión',
-          style: TextStyle(color: Colors.white), // Texto blanco
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+        backgroundColor: Color(0xFF332612),
         iconTheme: IconThemeData(
-            color: Colors.white), // Icono de retroceso blanco
+            color: Colors.white),
       ),
       body: Stack(
         children: <Widget>[
@@ -49,14 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          // Contenedor blanco centrado con opacidad
           Center(
             child: Container(
-              width: 320, // Ancho fijo para el contenedor
+              width: 320,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Color(0xFF6F624B).withOpacity(0.8),
-                // Marrón Claro con Opacidad
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -75,34 +73,34 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                       labelText: 'Nombre de Usuario',
                       labelStyle: TextStyle(
-                          color: Colors.white), // Texto blanco
+                          color: Colors.white),
                     ),
                     style: TextStyle(
-                        color: Colors.white), // Texto del campo blanco
+                        color: Colors.white),
                   ),
                   TextField(
                     controller: _passwordController,
                     decoration: InputDecoration(
                       labelText: 'Contraseña',
                       labelStyle: TextStyle(
-                          color: Colors.white), // Texto blanco
+                          color: Colors.white),
                     ),
                     obscureText: true,
                     style: TextStyle(
-                        color: Colors.white), // Texto del campo blanco
+                        color: Colors.white),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _login,
                     child: Text('Iniciar Sesión',
-                        style: TextStyle(color: Colors.white)), // Texto blanco
+                        style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+                      backgroundColor: Color(0xFF332612),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                       minimumSize: Size(
-                          double.infinity, 50), // Ancho máximo para el botón
+                          double.infinity, 50),
                     ),
                   ),
                 ],

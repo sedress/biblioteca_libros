@@ -41,15 +41,15 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
       appBar: AppBar(
         title: Text(
           'Lector de PDF',
-          style: TextStyle(color: Colors.white), // Color del texto en blanco
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color(0xFF332612), // Marrón Más Oscuro
+        backgroundColor: Color(0xFF332612),
         iconTheme: IconThemeData(color: Colors
-            .white), // Color de la flecha de volver atrás en blanco
+            .white),
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF6F624B), // Marrón Claro
+          color: Color(0xFF6F624B),
         ),
         child: _pdfFilePath != null
             ? PDFView(
@@ -58,7 +58,7 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
             : Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
-                Color(0xFF332612)), // Marrón Más Oscuro
+                Color(0xFF332612)),
           ),
         ),
       ),
