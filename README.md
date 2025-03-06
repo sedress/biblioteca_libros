@@ -1,20 +1,16 @@
-# biblioteca_libros
+# Biblioteca de Libros
 
-Tcc Desarrollo de Apps
+**Biblioteca de Libros** es una aplicación desarrollada en Java para la gestión y consulta de libros, permitiendo a los usuarios explorar títulos disponibles, filtrar por categorías y visualizar detalles de cada libro.
 
-Cipa: Pentágono
+## Características principales
+- Consulta de libros a través de una interfaz amigable.
+- Filtrado de libros por categoría, autor o título.
+- Visualización de detalles como sinopsis, autor y año de publicación.
+- Visualización de libros mediante lector de pdf.
 
-Sebastian Andres Mendoza Garcia, Kevin Andres Hernández Robles, Karla Vanessa Molinares Ricaurte, David Rafael Parias Bohórquez
+## Futuras mejoras
+- Implementación de un sistema de préstamos y devoluciones.
+- Interfaz gráfica más interactiva.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Autor
+Sebastián Mendoza García
